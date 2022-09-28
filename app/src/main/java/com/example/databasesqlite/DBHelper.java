@@ -1,0 +1,63 @@
+package com.example.databasesqlite;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class DBHelper extends SQLiteOpenHelper {
+
+    // CREATE SOME IMPORTANT CONSTANTS
+    public static final String DATABASE_NAME = "School";
+    public static final int DATABASE_VERSION = 1;
+    public static final String TABLE_NAME = "students";
+    public static final String COL_0 = "student_id";
+    public static final String COL_1 = "student_name";
+    public static final String COL_2 = "student_age";
+
+    String CREATE_COMMAND = "create table "+TABLE_NAME+"("+COL_0+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ""+COL_1+" TEXT, "+COL_2+" INTEGER);";
+
+    public DBHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(CREATE_COMMAND);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE "+TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+    }
+
+    public void insert(ContentValues values) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.insert(TABLE_NAME,null,values);
+
+    }
+
+    public Cursor readData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * from "+TABLE_NAME,null,null);
+    }
+
+    public void updateData(ContentValues values,int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_NAME,values,COL_0+"="+id,null);
+    }
+
+    public void deleteRow(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE "+COL_0+" ="+id);
+    }
+
+
+}
