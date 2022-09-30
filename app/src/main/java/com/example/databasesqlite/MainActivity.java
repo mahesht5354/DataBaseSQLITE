@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COL_1,"KUMAR");
         contentValues.put(DBHelper.COL_2,50);
-        dbHelper.updateData(contentValues,1);
+        dbHelper.updateData(contentValues,2);
         Toast.makeText(this, "UPDATE is done", Toast.LENGTH_SHORT).show();
     }
 

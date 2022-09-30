@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DataBaseSQLITE"
         tools:targetApi="31">
+        <provider
+            android:name=".DataProvider"
+            android:authorities="in.rajnaresh.CONTENT"
+            android:enabled="true"
+            android:exported="true"></provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
